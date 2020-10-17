@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import withTaxes from './hoc/withTaxes';
 
-function App() {
+function App(props) {
+  const {nominal, aguinaldo, calculoAguinaldo} = props;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <div className="App-body">
+      <header>
+          <h1>Hoc pattern example <br/>(calculadora de aguinaldo uruguayo)</h1>
       </header>
+      <main>
+            <label>Salario mensual nominal</label><br/>
+            <input type="number" onChange={(e)=>{calculoAguinaldo(e.target.value)}} />
+        <p>{"Salario nominal: $" + nominal}</p>
+        <p>{"Aguinaldo: $" + aguinaldo}</p>
+      </main>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default withTaxes(App)({
+  nominal:0,
+  aguinaldo:0
+});
